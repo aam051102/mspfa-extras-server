@@ -1,6 +1,9 @@
 const express = require("express");
 const fetch = require("node-fetch");
+const cors = require("cors");
 const app = express();
+app.use(cors({ methods: "GET", origin: "*" }));
+
 
 let searchDate = new Date().getTime() - 2600000 * 1000;
 let stories = [];
