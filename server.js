@@ -11,6 +11,7 @@ const dayInMilliseconds = 1000 * 60 * 60 * 24;
 const updateData = async () => {
     searchDate += dayInMilliseconds;
     stories = [];
+    let offset = 0;
 
     while (
         (stories.length == 0 || stories[stories.length - 1].u > searchDate) &&
@@ -22,10 +23,11 @@ const updateData = async () => {
                 "Content-Type": "application/x-www-form-urlencoded",
                 Accept: "application/json",
             },
-            body: "do=stories&n=&t=&h=4&o=updated&p=p&m=1000",
+            body: `do=stories&n=&t=&h=4&o=updated&p=p&m=500&f=${offset}`,
         })
             .then((e) => e.json())
             .then((data) => {
+                offset += 500;
                 stories = stories.concat(data);
             });
     }
